@@ -6,20 +6,32 @@ using namespace cv;
 using namespace std;
 int main( int argc, char** argv )
 {
-    if( argc != 2)
-    {
-     cout <<" Usage: display_image ImageToLoadAndDisplay" << endl;
-     return -1;
+    Mat3b img(1080,1080, CV_32FC3);
+    cv::imshow("image",img);
+    cv::Vec3b lines[img.cols][img.rows];
+    for(int i = 0; i < img.cols; i++){
+        for(int j = 0; j < img.rows; j++){
+            if((rand()%2) == 1){
+                img.at<cv::Vec3b>(j,i) = {0,0,0};
+            }
+            else{
+                img.at<cv::Vec3b>(j,i) = {255,255,255};
+            }
+        }
     }
-    Mat image;
-    image = imread(argv[1], IMREAD_COLOR); // Read the file
-    if( image.empty() ) // Check for invalid input
-    {
-        cout << "Could not open or find the image" << std::endl ;
-        return -1;
+    while(1){
+        for(int i = 0; i < img.rows; i++){
+            for(int j = 0; j < img.cols; j++){
+                if(i > 0){
+                    
+                }
+            }
+            cv::imshow("image",img);
+            int x = cv::waitKey(42) & 0xFF;
+            if(x == 32){
+                return 0;
+            }
+        }
     }
-    namedWindow( "Display window", WINDOW_AUTOSIZE ); // Create a window for display.
-    imshow( "Display window", image ); // Show our image inside it.
-    waitKey(0); // Wait for a keystroke in the window
-    return 0;
+    return EXIT_SUCCESS;
 }
